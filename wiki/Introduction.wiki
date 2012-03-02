@@ -1,4 +1,13 @@
 ==1. 简介 ==
-This document is a modified version of a document from a committee formed at AT&T's Indian Hill labs to establish a common set of coding standards and recommendations for the Indian Hill community.
 
-The scope of this work is C coding style. The scope of this work is C coding style. Good style should encourage consistent layout, improve portability, and reduce errors.
+本文档修改于AT&T Indian Hill实验室内部成立的一个委员会的一份文档，旨在于建立一套通用的编码标准并推荐给Indian Hill社区。
+
+本文主要讲述编码风格。良好的风格能够鼓励大家形成一致的代码布局，提高代码可移植性并且减少错误数量。
+
+本文不关注功能组织，或是一些诸如如何使用goto的一般话题。我们尝试将之前的有关C代码风格的文档整合到一套统一的标准中，这套标准将适合于任何使用C语言的工程，当然还是会有部分内容是针对一些特定系统的。另外不可避免地是这些标准仍然无法覆盖到所有情况。经验以及广泛的评价十分重要，遇到特殊情况时，大家应该咨询有经验的C程序员，或者查看那些经验丰富的C程序员们的代码(最好遵循这些规则)。
+
+本文中的标准本身并不是必需的，但个别机构或团体可能部分或全部采用该标准作为程序验收的一部分。因此，在你的机构中其他人很可能以一种相似的风格编码。最终，这些标准的目的是提高可移植性，减少维护工作，尤其是提高代码的清晰度。
+
+这里很多风格的选择都有些许武断。混合的编码风格比糟糕的编码风格更难于维护，所以宕变更现有代码时，最好是保持与现有代码风格一致，而不是盲目地遵循本文档中的规则。
+
+_清晰的是专业的；不清晰的则是外行的_ -- Sir Ernest Gowers
