@@ -1,6 +1,5 @@
 ==2. 文件组织 ==
-A file consists of various sections that should be separated by several blank lines. Although there is no maximum length limit for source files, files with more than about 1000 lines are cumbersome to deal with. The editor may not have enough temp space to edit the file, compilations will go more slowly, etc. Many rows of asterisks, for example, present little information compared to the time it takes to scroll past, and are discouraged. Lines longer than 79 columns are not handled well by all terminals and should be avoided if possible. Excessively long lines which result from deep indenting are often a symptom of poorly-organized code.
+
+一个文件包含的各个部分应该用若干个空行分隔。虽然对源文件没有最大长度限制，但超过1000行的文件处理起来非常不方便。编辑器很可能没有足够的临时空间来编辑这个文件，编译过程也会因此变得十分缓慢。与回滚到前面所花费的时间相比，那些仅仅呈现了极少量信息的多行星号是不值得的，我们不鼓励使用。超过79列的行无法被所有的终端都很好地处理，应该尽可能的避免使用。过长的行会导致过深的缩进，这常常是一种代码组织不善的症状。
 
 ===2.1 文件命名惯例===
-
-File names are made up of a base name, and an optional period and suffix. The first character of the name should be a letter and all characters (except the period) should be lower-case letters and numbers. The base name should be eight or fewer characters and the suffix should be three or fewer characters (four, if you include the period). These rules apply to both program files and default files used and produced by the program (e.g., ``rogue.sav'').
