@@ -1,13 +1,4 @@
-#summary One-sentence summary of this page.
+==1. 简介 ==
+This document is a modified version of a document from a committee formed at AT&T's Indian Hill labs to establish a common set of coding standards and recommendations for the Indian Hill community.
 
-= Introduction =
-
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+The scope of this work is C coding style. The scope of this work is C coding style. Good style should encourage consistent layout, improve portability, and reduce errors.
