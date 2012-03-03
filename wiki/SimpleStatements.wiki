@@ -1,1 +1,124 @@
 ==8. 简单语句 ==
+
+每行只应该有一条语句，除非多条语句关联特别紧密。
+
+{{{
+    case FOO:  oogle (zork);  boogle (zork);  break;
+    case BAR:  oogle (bork);  boogle (zork);  break;
+    case BAZ:  oogle (gork);  boogle (bork);  break;
+}}}
+
+
+for或while循环语句的空体应该单独放在一行并加上注释，这样可以清晰的看出空体是有意而为，并非遗漏代码。
+
+{{{
+    while (*dest++ = *src++)
+        ;    /* VOID */
+}}}
+
+不要对非零表达式进行默认测试，例如：
+
+{{{
+    if (f() != FAIL)
+}}}
+
+比下面的代码更好
+{{{
+    if (f())
+}}}
+
+即使FAIL的值可能为0(在C中0被认为是假)。当后续有人决定使用-1替代0作为失败返回值时，一个显式的测试将解决你的问题。即使比较的值永远不会改变，我们也应该使用显式的比较；例如
+
+{{{if (!(bufsize % sizeof(int)))}}}
+
+应该被写成
+
+{{{if ((bufsize % sizeof(int)) == 0)}}}
+
+这样可以反映这个测试的数值(非布尔)本质。一个常见的错误点是使用strcmp测试字符串是否相同，这个测试的结果永远不应该被放弃。比较好的方法是定义一个宏STREQ。
+
+{{{
+    #define STREQ(a, b) (strcmp((a), (b)) == 0)
+}}}
+
+对谓词或满足下面约束的表达式，非零测试经常被放弃：
+
+   * 0表示假，其他都为真。
+   * 通过其命名可以看出返回真是显而易见的。
+
+用isvalid或valid称呼一个谓词，不要用checkvalid。
+
+
+一个非常常见的实践就是在一个全局头文件中声明一个布尔类型"bool"。这个特殊的名字可以极大地提高代码可读性。
+
+{{{
+    typedef int    bool;
+    #define FALSE    0
+    #define TRUE    1
+}}}
+
+或
+{{{
+    typedef enum { NO=0, YES } bool;
+}}}
+
+即便有了这些声明，也不要检查一个布尔值与1(TRUE，YES等)的相当性；可用测试与0(FALSE，NO等)的不等性替代。绝大多数函数都可以保证为假的时候返回0，但为真的时候只返回非零。
+
+{{{
+    if (func() == TRUE) { ...
+}}}
+
+必须被写成
+
+{{{
+    if (func() != FALSE) { ...
+}}}
+
+如果可能的话，最好为函数/变量重命名或者重写这个表达式，这样就可以显而易见的知道其含义，而无需再与true或false比较了(例如，重命名为isvalid())。
+
+总是会有时间和地方用于嵌入赋值语句。在一些结构中，在没有降低代码可读性的前提下，没有比这更好的方式来实现这个结果了。
+
+{{{
+    while ((c = getchar()) != EOF) {
+        process the character
+    }
+}}}
+
+
+The ++ and -- operators count as assignment statements. So, for many purposes, do functions with side effects. Using embedded assignment statements to improve run-time performance is also possible. However, one should consider the tradeoff between increased speed and decreased maintainability that results when embedded assignments are used in artificial places. For example,
+
+++和--操作符可算作是赋值语句。这样，为了某些意图，实现带有副作用的功能。使用嵌入赋值语句也可能提高运行时的性能。不过，大家应该在提高的性能与下降的可维护性之间做好权衡。当在一些人为的地方使用嵌入赋值语句时，这种情况会发生。
+
+{{{
+    a = b + c;
+    d = a + r;
+}}}
+
+不应该被下面代码替代：
+
+{{{
+    d = (a = b + c) + r;
+}}}
+
+即使后者可能节省一个计算周期。在长期运行时，由于优化器渐获成熟，两者的运行时间差距将下降，而两者在维护性方面的差异将提高，因为人类的记忆会随着时间的流逝而衰退。
+
+在任何结构良好的代码中，goto语句都应该保守地使用。使用goto带来好处最大的地方是从switch、for和while多层嵌套中跳出，但这样做的需求也暗示了代码的内层结构应该被抽取出来放到一个单独的返回值为成功或失败的函数中。
+
+{{{
+        for (...) {
+            while (...) {
+                ...
+                if (disaster)
+                    goto error;
+           
+            }
+        }
+        ...
+    error:
+        clean up the mess
+}}}
+
+
+当需要goto时候，其对应的标签应该被放在单独一行，并且后续的代码缩进一级。使用goto语句时应该增加注释(可能放在代码块的头)以说明它的功用和目的。continue应该保守地使用，并且尽可能靠近循环的顶部。Break的麻烦比较少。
+
+非原型函数的参数有时需要被显式做类型提升。例如，如果函数期望一个32bit的长整型，但却被传入一个16bit的整型数，可能会导致函数栈不对齐。指针，整型和浮点值都会发生此问题。
