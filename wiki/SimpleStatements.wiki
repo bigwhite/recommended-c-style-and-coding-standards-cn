@@ -76,7 +76,7 @@ for或while循环语句的空体应该单独放在一行并加上注释，这样
 
 如果可能的话，最好为函数/变量重命名或者重写这个表达式，这样就可以显而易见的知道其含义，而无需再与true或false比较了(例如，重命名为isvalid())。
 
-总是会有时间和地方用于嵌入赋值语句。在一些结构中，在没有降低代码可读性的前提下，没有比这更好的方式来实现这个结果了。
+嵌入赋值语句也有用武之地。在一些结构中，在没有降低代码可读性的前提下，没有比这更好的方式来实现这个结果了。
 
 {{{
     while ((c = getchar()) != EOF) {
@@ -84,10 +84,7 @@ for或while循环语句的空体应该单独放在一行并加上注释，这样
     }
 }}}
 
-
-The ++ and -- operators count as assignment statements. So, for many purposes, do functions with side effects. Using embedded assignment statements to improve run-time performance is also possible. However, one should consider the tradeoff between increased speed and decreased maintainability that results when embedded assignments are used in artificial places. For example,
-
-++和--操作符可算作是赋值语句。这样，为了某些意图，实现带有副作用的功能。使用嵌入赋值语句也可能提高运行时的性能。不过，大家应该在提高的性能与下降的可维护性之间做好权衡。当在一些人为的地方使用嵌入赋值语句时，这种情况会发生。
+++和--操作符可算作是赋值语句。这样，为了某些意图，实现带有副作用的功能。使用嵌入赋值语句也可能提高运行时的性能。不过，大家应该在提高的性能与下降的可维护性之间做好权衡。当在一些人为的地方使用嵌入赋值语句时，这种情况会发生，例如：
 
 {{{
     a = b + c;
