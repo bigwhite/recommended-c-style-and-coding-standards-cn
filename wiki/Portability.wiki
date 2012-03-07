@@ -122,8 +122,6 @@ strcpy (&s[8], ttychars);
 
   * 字长(word size)也影响移位和掩码。下面代码在一些68000机器上只会将一个整型数的最右三个位清0，而在其他机器上它还会将高地址的两个字节清零。{{{x &= 0177770}}} 使用 {{{x &= ~07}}}可以在所有机器上正常工作。位字段(bitfield)没有这些问题。
 
-Side effects within expressions can result in code whose semantics are compiler-dependent, since C's order of evaluation is explicitly undefined in most places. Notorious examples include the following.
-
   * 表达式内的副作用可能导致代码语义是编译器相关的，因为在大多数情况下C语言的求值顺序是没有显式定义的。下面是一个臭名昭著的例子：
 {{{
 a[i] = b[i++];
